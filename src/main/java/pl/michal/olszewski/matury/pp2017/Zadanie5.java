@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pp2017.zad5.SplitLineToWynajemPOJO;
-import pl.michal.olszewski.matury.pp2017.zad5.Wynajem;
+import pl.michal.olszewski.matury.pp2017.zad5.SplitLineToRentPOJO;
+import pl.michal.olszewski.matury.pp2017.zad5.Rent;
 
 public class Zadanie5 {
 
@@ -22,49 +22,49 @@ public class Zadanie5 {
     Map<Long, Long> collect = Files.readAllLines(Paths.get("wynajem.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToWynajemPOJO::split)
-        .map(Wynajem::getTyp)
+        .map(SplitLineToRentPOJO::split)
+        .map(Rent::getType)
         .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     Long najczestszyTyp = collect.entrySet().stream().max(Comparator.comparing(Entry::getValue))
         .orElseThrow(() -> new IllegalArgumentException("nieprawidlowa wartosc")).getKey();
     System.out.println("Najczesciej wynajmowany typ to " + najczestszyTyp);
 
-    Map<Long, List<Wynajem>> wynajemPerTyp = Files.readAllLines(Paths.get("wynajem.txt"))
+    Map<Long, List<Rent>> wynajemPerTyp = Files.readAllLines(Paths.get("wynajem.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToWynajemPOJO::split)
-        .collect(Collectors.groupingBy(Wynajem::getTyp));
+        .map(SplitLineToRentPOJO::split)
+        .collect(Collectors.groupingBy(Rent::getType));
 
     System.out.println("Typ domku - ilosc dób");
-    for (Entry<Long, List<Wynajem>> entry : wynajemPerTyp.entrySet()) {
+    for (Entry<Long, List<Rent>> entry : wynajemPerTyp.entrySet()) {
       int sumaDob = entry.getValue()
           .stream()
-          .map(v -> ChronoUnit.DAYS.between(v.getDataPrzyjazdu(), v.getDataWyjazdu()))
+          .map(v -> ChronoUnit.DAYS.between(v.getFrom(), v.getTo()))
           .mapToInt(Long::intValue)
           .sum();
       System.out.println(entry.getKey() + " " + sumaDob);
     }
 
     System.out.println("Zad 5c");
-    for (Entry<Long, List<Wynajem>> entry : wynajemPerTyp.entrySet()) {
+    for (Entry<Long, List<Rent>> entry : wynajemPerTyp.entrySet()) {
       BigDecimal reduce = entry.getValue()
           .stream()
-          .map(Wynajem::sumaWydatkow)
+          .map(Rent::sumaWydatkow)
           .reduce(BigDecimal.ZERO, BigDecimal::add);
       System.out.println(entry.getKey() + " " + reduce);
     }
 
     System.out.println("Zad 5d");
-    Map<Month, List<Wynajem>> wynajemPerMiesiac = Files.readAllLines(Paths.get("wynajem.txt"))
+    Map<Month, List<Rent>> wynajemPerMiesiac = Files.readAllLines(Paths.get("wynajem.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToWynajemPOJO::split)
-        .collect(Collectors.groupingBy(v -> v.getDataPrzyjazdu().getMonth()));
+        .map(SplitLineToRentPOJO::split)
+        .collect(Collectors.groupingBy(v -> v.getFrom().getMonth()));
 
-    for (Entry<Month, List<Wynajem>> entry : wynajemPerMiesiac.entrySet()) {
+    for (Entry<Month, List<Rent>> entry : wynajemPerMiesiac.entrySet()) {
       BigDecimal sum = entry.getValue()
           .stream()
-          .map(v -> v.getEnergia().add(v.getWoda()))
+          .map(v -> v.getEnergy().add(v.getWater()))
           .reduce(BigDecimal.ZERO, BigDecimal::add);
       System.out.println(entry.getKey() + " " + sum);
     }

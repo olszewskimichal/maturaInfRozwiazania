@@ -4,7 +4,10 @@ public class SplitLineToTeamPOJO {
 
   public static Team split(String line) {
     String[] split = line.split("\t");
-    return new Team(Long.valueOf(split[0]), split[1], split[2]);
+    return new Team(
+        Long.valueOf(split[0]),
+        split[1],
+        split[2]);
   }
 
 }

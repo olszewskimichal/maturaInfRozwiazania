@@ -4,7 +4,10 @@ public class SplitLineToRefreePOJO {
 
   public static Refree split(String line) {
     String[] split = line.split("\t");
-    return new Refree(split[0], split[1], split[2]);
+    return new Refree(
+        split[0],
+        split[1],
+        split[2]);
   }
 
 }

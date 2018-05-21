@@ -11,42 +11,42 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pp2017.zad6.Kandydat;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToGlosPOJO;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToKandydatPOJO;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToUczenPOJO;
-import pl.michal.olszewski.matury.pp2017.zad6.Uczen;
+import pl.michal.olszewski.matury.pp2017.zad6.Candidate;
+import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToVotePOJO;
+import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToCandidatePOJO;
+import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToStudentPOJO;
+import pl.michal.olszewski.matury.pp2017.zad6.Student;
 
 public class Zadanie6 {
 
 
   public static void main(String args[]) throws IOException {
-    Set<Uczen> uczens = readAllStudentsFromFile();
-    Set<Kandydat> candidates = readAllCandidatesFromFile();
-    updateVotes(uczens, candidates);
+    Set<Student> students = readAllStudentsFromFile();
+    Set<Candidate> candidates = readAllCandidatesFromFile();
+    updateVotes(students, candidates);
 
     System.out.println("Zad 6a");
-    System.out.println("Dziewczyny " + countStudentsForPredicate(uczens, v -> v.getName().endsWith("a")));
-    System.out.println("Mezczyzni " + countStudentsForPredicate(uczens, v -> !v.getName().endsWith("a")));
+    System.out.println("Dziewczyny " + countStudentsForPredicate(students, v -> v.getName().endsWith("a")));
+    System.out.println("Mezczyzni " + countStudentsForPredicate(students, v -> !v.getName().endsWith("a")));
 
     System.out.println("Zad 6b");
-    Set<Kandydat> ppu = getPPU(candidates);
+    Set<Candidate> ppu = getPPU(candidates);
     ppu.stream()
-        .sorted((e1, e2) -> Integer.compare(e2.getUczniowieGlosujacy().size(), e1.getUczniowieGlosujacy().size())).
-        forEach(v -> System.out.println(v.getName() + " " + v.getLastName() + " " + v.getUczniowieGlosujacy().size()));
+        .sorted((e1, e2) -> Integer.compare(e2.getVotersId().size(), e1.getVotersId().size())).
+        forEach(v -> System.out.println(v.getName() + " " + v.getLastName() + " " + v.getVotersId().size()));
     System.out.println("Zad 6c");
-    System.out.println("Uczniow którzy nie wzieli udzialu w wyborach " + countStudentsForPredicate(uczens, v -> v.getIdZaglosowanychKandydatow().isEmpty()));
+    System.out.println("Uczniow którzy nie wzieli udzialu w wyborach " + countStudentsForPredicate(students, v -> v.getIdZaglosowanychKandydatow().isEmpty()));
     System.out.println("Zad 6d");
 
-    Map<Long, List<Uczen>> listMap = uczens.stream().collect(Collectors.groupingBy(Uczen::getRok));
+    Map<Long, List<Student>> listMap = students.stream().collect(Collectors.groupingBy(Student::getRok));
 
-    for (Entry<Long, List<Uczen>> entry : listMap.entrySet()) {
+    for (Entry<Long, List<Student>> entry : listMap.entrySet()) {
       int sum = entry
           .getValue().stream()
           .mapToInt(v -> v.getIdZaglosowanychKandydatow().size())
           .sum();
       long classCount = entry.getValue().stream()
-          .map(Uczen::getClassSymbol)
+          .map(Student::getClassSymbol)
           .distinct()
           .count();
       BigDecimal avg = BigDecimal.valueOf(sum).divide(BigDecimal.valueOf(classCount), 2, RoundingMode.HALF_UP);
@@ -58,14 +58,14 @@ public class Zadanie6 {
   /**
    * PPU - Prezydium Parlamentu Uczniowskiego - składa się z 10 osób, które uzyskały największą liczbę głosów
    */
-  private static Set<Kandydat> getPPU(Set<Kandydat> candidates) {
+  private static Set<Candidate> getPPU(Set<Candidate> candidates) {
     return candidates.stream()
-        .sorted((e1, e2) -> Integer.compare(e2.getUczniowieGlosujacy().size(), e1.getUczniowieGlosujacy().size()))
+        .sorted((e1, e2) -> Integer.compare(e2.getVotersId().size(), e1.getVotersId().size()))
         .limit(10)
         .collect(Collectors.toSet());
   }
 
-  private static long countStudentsForPredicate(Set<Uczen> students, Predicate<Uczen> predicate) {
+  private static long countStudentsForPredicate(Set<Student> students, Predicate<Student> predicate) {
     return students
         .stream()
         .filter(predicate)
@@ -73,23 +73,23 @@ public class Zadanie6 {
   }
 
 
-  private static Set<Uczen> readAllStudentsFromFile() throws IOException {
+  private static Set<Student> readAllStudentsFromFile() throws IOException {
     return Files.readAllLines(Paths.get("uczniowie.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToUczenPOJO::split)
+        .map(SplitLineToStudentPOJO::split)
         .collect(Collectors.toSet());
   }
 
-  private static Set<Kandydat> readAllCandidatesFromFile() throws IOException {
+  private static Set<Candidate> readAllCandidatesFromFile() throws IOException {
     return Files.readAllLines(Paths.get("kandydaci.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToKandydatPOJO::split)
+        .map(SplitLineToCandidatePOJO::split)
         .collect(Collectors.toSet());
   }
 
-  private static Kandydat findCandidateById(Long id, Set<Kandydat> candidates) {
+  private static Candidate findCandidateById(Long id, Set<Candidate> candidates) {
     return candidates
         .stream()
         .filter(v -> v.getId().equals(id))
@@ -97,7 +97,7 @@ public class Zadanie6 {
         .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono kandydata o id = " + id));
   }
 
-  private static Uczen findStudentById(Long id, Set<Uczen> students) {
+  private static Student findStudentById(Long id, Set<Student> students) {
     return students
         .stream()
         .filter(v -> v.getId().equals(id))
@@ -105,18 +105,18 @@ public class Zadanie6 {
         .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono ucznia o id = " + id));
   }
 
-  private static void updateVotes(Set<Uczen> students, Set<Kandydat> candidates) throws IOException {
+  private static void updateVotes(Set<Student> students, Set<Candidate> candidates) throws IOException {
     Files.readAllLines(Paths.get("glosy.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToGlosPOJO::split)
+        .map(SplitLineToVotePOJO::split)
         .forEach(v -> {
-          Long uczenId = v.getUczenId();
-          Long kandydatId = v.getKandydatId();
-          Kandydat candidateById = findCandidateById(kandydatId, candidates);
-          Uczen studentById = findStudentById(uczenId, students);
+          Long uczenId = v.getStudentId();
+          Long kandydatId = v.getCandidateId();
+          Candidate candidateById = findCandidateById(kandydatId, candidates);
+          Student studentById = findStudentById(uczenId, students);
           studentById.getIdZaglosowanychKandydatow().add(kandydatId);
-          candidateById.getUczniowieGlosujacy().add(uczenId);
+          candidateById.getVotersId().add(uczenId);
         });
   }
 

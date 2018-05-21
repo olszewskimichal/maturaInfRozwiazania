@@ -3,7 +3,7 @@ package pl.michal.olszewski.matury.pp2017.zad6;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Uczen {
+public class Student {
 
   private final Long id;
   private final String name;
@@ -12,7 +12,7 @@ public class Uczen {
   private final Long rok;
   private List<Long> idZaglosowanychKandydatow = new ArrayList<>();
 
-  public Uczen(Long id, String name, String lastName, String classSymbol, Long rok) {
+  public Student(Long id, String name, String lastName, String classSymbol, Long rok) {
     this.id = id;
     this.name = name;
     this.lastName = lastName;

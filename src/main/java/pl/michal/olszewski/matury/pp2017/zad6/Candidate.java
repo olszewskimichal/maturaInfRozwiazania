@@ -2,16 +2,15 @@ package pl.michal.olszewski.matury.pp2017.zad6;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class Kandydat {
+public class Candidate {
 
   private final Long id;
   private final String name;
   private final String lastName;
-  private List<Long> uczniowieGlosujacy = new ArrayList<>();
+  private List<Long> votersId = new ArrayList<>();
 
-  public Kandydat(Long id, String name, String lastName) {
+  public Candidate(Long id, String name, String lastName) {
     this.id = id;
     this.name = name;
     this.lastName = lastName;
@@ -29,7 +28,7 @@ public class Kandydat {
     return lastName;
   }
 
-  public List<Long> getUczniowieGlosujacy() {
-    return uczniowieGlosujacy;
+  public List<Long> getVotersId() {
+    return votersId;
   }
 }
