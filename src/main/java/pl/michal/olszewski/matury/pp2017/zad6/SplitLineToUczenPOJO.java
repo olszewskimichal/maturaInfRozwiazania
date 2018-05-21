@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pp2017.zad6;
 
-public class SplitStringToUczen {
+public class SplitLineToUczenPOJO {
 
   public static Uczen split(String line) {
     String[] split = line.split("\t");

@@ -12,9 +12,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import pl.michal.olszewski.matury.pp2017.zad6.Kandydat;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToGlos;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToKandydat;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitStringToUczen;
+import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToGlosPOJO;
+import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToKandydatPOJO;
+import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToUczenPOJO;
 import pl.michal.olszewski.matury.pp2017.zad6.Uczen;
 
 public class Zadanie6 {
@@ -77,7 +77,7 @@ public class Zadanie6 {
     return Files.readAllLines(Paths.get("uczniowie.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToUczen::split)
+        .map(SplitLineToUczenPOJO::split)
         .collect(Collectors.toSet());
   }
 
@@ -85,7 +85,7 @@ public class Zadanie6 {
     return Files.readAllLines(Paths.get("kandydaci.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToKandydat::split)
+        .map(SplitLineToKandydatPOJO::split)
         .collect(Collectors.toSet());
   }
 
@@ -109,7 +109,7 @@ public class Zadanie6 {
     Files.readAllLines(Paths.get("glosy.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToGlos::split)
+        .map(SplitLineToGlosPOJO::split)
         .forEach(v -> {
           Long uczenId = v.getUczenId();
           Long kandydatId = v.getKandydatId();

@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pr2017stara.zad6;
 
-public class SplitStringToOsoba {
+public class SplitLineToOsobaPOJO {
 
   public static Osoba split(String line) {
     String[] split = line.split("\t");

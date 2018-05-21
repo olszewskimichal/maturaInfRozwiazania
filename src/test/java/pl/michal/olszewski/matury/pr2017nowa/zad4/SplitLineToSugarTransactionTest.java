@@ -10,7 +10,7 @@ class SplitLineToSugarTransactionTest {
   @Test
   void shouldSplitLineToSugarTransaction() {
     String line = "2005-01-01\t872-13-44-365\t10";
-    SugarTransaction sugarTransaction = SplitLineToSugarTransaction.split(line);
+    SugarTransaction sugarTransaction = SplitLineToSugarTransactionPOJO.split(line);
     assertThat(sugarTransaction).isNotNull();
     assertThat(sugarTransaction.getSugarCount()).isNotNull().isEqualTo(10);
     assertThat(sugarTransaction.getNip()).isNotNull().isEqualTo("872-13-44-365");

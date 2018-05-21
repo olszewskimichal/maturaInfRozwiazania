@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import pl.michal.olszewski.matury.pr2017stara.zad6.Osoba;
 import pl.michal.olszewski.matury.pr2017stara.zad6.Rezerwacja;
-import pl.michal.olszewski.matury.pr2017stara.zad6.SplitStringToOsoba;
-import pl.michal.olszewski.matury.pr2017stara.zad6.SplitStringToRezerwacja;
-import pl.michal.olszewski.matury.pr2017stara.zad6.SplitStringToWycieczka;
+import pl.michal.olszewski.matury.pr2017stara.zad6.SplitLineToOsobaPOJO;
+import pl.michal.olszewski.matury.pr2017stara.zad6.SplitLineToRezerwacjaPOJO;
+import pl.michal.olszewski.matury.pr2017stara.zad6.SplitLineToWycieczkaPOJO;
 import pl.michal.olszewski.matury.pr2017stara.zad6.Wycieczka;
 
 public class Zadanie6 {
@@ -73,7 +73,7 @@ public class Zadanie6 {
     return Files.readAllLines(Paths.get("osoby.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToOsoba::split)
+        .map(SplitLineToOsobaPOJO::split)
         .collect(Collectors.toSet());
   }
 
@@ -81,7 +81,7 @@ public class Zadanie6 {
     return Files.readAllLines(Paths.get("wycieczki.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToWycieczka::split)
+        .map(SplitLineToWycieczkaPOJO::split)
         .collect(Collectors.toSet());
   }
 
@@ -89,7 +89,7 @@ public class Zadanie6 {
     return Files.readAllLines(Paths.get("rezerwacje.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToRezerwacja::split)
+        .map(SplitLineToRezerwacjaPOJO::split)
         .collect(Collectors.toSet());
   }
 

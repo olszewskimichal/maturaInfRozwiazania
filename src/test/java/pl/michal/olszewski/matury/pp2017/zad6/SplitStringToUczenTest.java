@@ -9,7 +9,7 @@ class SplitStringToUczenTest {
   @Test
   void shouldSplitLineToUczenPojo() {
     String line = "1600\tMateusz\tZgid\tA\t3";
-    Uczen uczen = SplitStringToUczen.split(line);
+    Uczen uczen = SplitLineToUczenPOJO.split(line);
     assertThat(uczen.getId()).isEqualTo(1600L);
     assertThat(uczen.getName()).isEqualTo("Mateusz");
     assertThat(uczen.getLastName()).isEqualTo("Zgid");

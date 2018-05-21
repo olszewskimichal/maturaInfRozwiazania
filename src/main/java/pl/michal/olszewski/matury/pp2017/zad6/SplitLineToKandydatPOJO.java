@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pp2017.zad6;
 
-public class SplitLineToKandydat {
+public class SplitLineToKandydatPOJO {
 
   public static Kandydat split(String line) {
     String[] split = line.split("\t");

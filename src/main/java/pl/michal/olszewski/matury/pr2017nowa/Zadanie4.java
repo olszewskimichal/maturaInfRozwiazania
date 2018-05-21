@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pr2017nowa.zad4.SplitLineToSugarTransaction;
+import pl.michal.olszewski.matury.pr2017nowa.zad4.SplitLineToSugarTransactionPOJO;
 import pl.michal.olszewski.matury.pr2017nowa.zad4.SugarTransaction;
 
 public class Zadanie4 {
@@ -97,7 +97,7 @@ public class Zadanie4 {
   private static Set<SugarTransaction> readSugarTransactionFromFile() throws IOException {
     return Files.readAllLines(Paths.get("cukier.txt"))
         .stream()
-        .map(SplitLineToSugarTransaction::split)
+        .map(SplitLineToSugarTransactionPOJO::split)
         .collect(Collectors.toSet());
   }
 

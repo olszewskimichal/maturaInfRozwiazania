@@ -3,7 +3,7 @@ package pl.michal.olszewski.matury.pp2017.zad5;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class SplitStringToWynajem {
+public class SplitLineToWynajemPOJO {
 
   public static Wynajem split(String line) {
     String[] split = line.split("\t");

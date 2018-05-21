@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pp2017.zad6;
 
-public class SplitLineToGlos {
+public class SplitLineToGlosPOJO {
 
   public static Glos split(String line) {
     String[] split = line.split("\t");

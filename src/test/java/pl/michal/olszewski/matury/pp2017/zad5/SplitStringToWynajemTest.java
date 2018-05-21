@@ -13,7 +13,7 @@ class SplitStringToWynajemTest {
     //given
     String line = "2014-01-02\t2014-01-11\t39,35\t1,04\t5";
     //when
-    Wynajem wynajem = SplitStringToWynajem.split(line);
+    Wynajem wynajem = SplitLineToWynajemPOJO.split(line);
     //then
     assertThat(wynajem.getDataPrzyjazdu()).isNotNull().isEqualTo(LocalDate.of(2014, 1, 2));
     assertThat(wynajem.getDataWyjazdu()).isNotNull().isEqualTo(LocalDate.of(2014, 1, 11));

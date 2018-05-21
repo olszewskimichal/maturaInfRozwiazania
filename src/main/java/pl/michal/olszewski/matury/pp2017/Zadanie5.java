@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pp2017.zad5.SplitStringToWynajem;
+import pl.michal.olszewski.matury.pp2017.zad5.SplitLineToWynajemPOJO;
 import pl.michal.olszewski.matury.pp2017.zad5.Wynajem;
 
 public class Zadanie5 {
@@ -22,7 +22,7 @@ public class Zadanie5 {
     Map<Long, Long> collect = Files.readAllLines(Paths.get("wynajem.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToWynajem::split)
+        .map(SplitLineToWynajemPOJO::split)
         .map(Wynajem::getTyp)
         .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     Long najczestszyTyp = collect.entrySet().stream().max(Comparator.comparing(Entry::getValue))
@@ -32,7 +32,7 @@ public class Zadanie5 {
     Map<Long, List<Wynajem>> wynajemPerTyp = Files.readAllLines(Paths.get("wynajem.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToWynajem::split)
+        .map(SplitLineToWynajemPOJO::split)
         .collect(Collectors.groupingBy(Wynajem::getTyp));
 
     System.out.println("Typ domku - ilosc dób");
@@ -58,7 +58,7 @@ public class Zadanie5 {
     Map<Month, List<Wynajem>> wynajemPerMiesiac = Files.readAllLines(Paths.get("wynajem.txt"))
         .stream()
         .skip(1)
-        .map(SplitStringToWynajem::split)
+        .map(SplitLineToWynajemPOJO::split)
         .collect(Collectors.groupingBy(v -> v.getDataPrzyjazdu().getMonth()));
 
     for (Entry<Month, List<Wynajem>> entry : wynajemPerMiesiac.entrySet()) {

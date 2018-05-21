@@ -3,7 +3,7 @@ package pl.michal.olszewski.matury.pr2017stara.zad6;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class SplitStringToWycieczka {
+public class SplitLineToWycieczkaPOJO {
 
   public static Wycieczka split(String line) {
     String[] split = line.split("\t");

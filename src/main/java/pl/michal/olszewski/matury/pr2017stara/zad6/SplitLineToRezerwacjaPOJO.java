@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pr2017stara.zad6;
 
-public class SplitStringToRezerwacja {
+public class SplitLineToRezerwacjaPOJO {
 
   public static Rezerwacja split(String line) {
     String[] split = line.split("\t");
