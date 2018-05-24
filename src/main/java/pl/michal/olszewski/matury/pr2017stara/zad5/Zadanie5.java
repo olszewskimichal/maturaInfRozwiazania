@@ -1,13 +1,12 @@
-package pl.michal.olszewski.matury.pr2017stara;
+package pl.michal.olszewski.matury.pr2017stara.zad5;
 
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 public class Zadanie5 {
 
-  public static void main(String args[]) throws IOException {
+  public static void main(String args[]) {
     System.out.println("Zad 5.1");
     int initialState = 550;
     int tmp = 26;

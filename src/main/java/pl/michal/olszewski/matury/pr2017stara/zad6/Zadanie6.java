@@ -1,4 +1,4 @@
-package pl.michal.olszewski.matury.pr2017stara;
+package pl.michal.olszewski.matury.pr2017stara.zad6;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,12 +8,6 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pr2017stara.zad6.Person;
-import pl.michal.olszewski.matury.pr2017stara.zad6.Reservation;
-import pl.michal.olszewski.matury.pr2017stara.zad6.SplitLineToPersonPOJO;
-import pl.michal.olszewski.matury.pr2017stara.zad6.SplitLineToReservationPOJO;
-import pl.michal.olszewski.matury.pr2017stara.zad6.SplitLineToTripPOJO;
-import pl.michal.olszewski.matury.pr2017stara.zad6.Trip;
 
 public class Zadanie6 {
 
@@ -32,8 +26,8 @@ public class Zadanie6 {
 
     System.out.println("zad 6.2");
     people.stream()
-        .max(Comparator.comparing(Person::calyKoszt))
-        .ifPresent(v -> System.out.println(v.getName() + " " + v.getLastName() + " " + v.calyKoszt()));
+        .max(Comparator.comparing(Person::calcCostForPerson))
+        .ifPresent(v -> System.out.println(v.getName() + " " + v.getLastName() + " " + v.calcCostForPerson()));
 
     System.out.println("zad 6.3");
 

@@ -3,9 +3,9 @@ package pl.michal.olszewski.matury.pr2017stara.zad4;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BCDChecker {
+class BCDChecker {
 
-  public static boolean check(String line) {
+  static boolean check(String line) {
     return splitForEvery4Bit(line)
         .stream()
         .map(v -> Integer.parseInt(v, 2))

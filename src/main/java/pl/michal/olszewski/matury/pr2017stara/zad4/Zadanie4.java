@@ -1,4 +1,4 @@
-package pl.michal.olszewski.matury.pr2017stara;
+package pl.michal.olszewski.matury.pr2017stara.zad4;
 
 import java.io.IOException;
 import java.nio.file.Files;

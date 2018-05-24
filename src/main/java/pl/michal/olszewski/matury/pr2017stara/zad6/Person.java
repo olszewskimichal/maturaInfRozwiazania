@@ -12,7 +12,7 @@ public class Person {
   private final String lastName;
   private List<Reservation> reservations = new ArrayList<>();
 
-  public Person(Long id, String name, String lastName) {
+  Person(Long id, String name, String lastName) {
     this.id = id;
     this.name = name;
     this.lastName = lastName;
@@ -26,15 +26,15 @@ public class Person {
     return name;
   }
 
-  public String getLastName() {
+  String getLastName() {
     return lastName;
   }
 
-  public List<Reservation> getReservations() {
+  List<Reservation> getReservations() {
     return reservations;
   }
 
-  public BigDecimal calyKoszt() {
+  BigDecimal calcCostForPerson() {
     BigDecimal result = BigDecimal.ZERO;
     for (Reservation reservation : getReservations()) {
       int dorosli = reservation.getDorosli();
