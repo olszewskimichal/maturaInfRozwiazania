@@ -3,9 +3,9 @@ package pl.michal.olszewski.matury.pp2017.zad5;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class SplitLineToRentPOJO {
+class SplitLineToRentPOJO {
 
-  public static Rent split(String line) {
+  static Rent split(String line) {
     String[] split = line.split("\t");
     return new Rent(
         LocalDate.parse(split[0]),

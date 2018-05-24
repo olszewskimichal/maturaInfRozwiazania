@@ -14,6 +14,6 @@ class SplitStringToStudentTest {
     assertThat(student.getName()).isEqualTo("Mateusz");
     assertThat(student.getLastName()).isEqualTo("Zgid");
     assertThat(student.getClassSymbol()).isEqualTo("A");
-    assertThat(student.getRok()).isEqualTo(3L);
+    assertThat(student.getYear()).isEqualTo(3L);
   }
 }

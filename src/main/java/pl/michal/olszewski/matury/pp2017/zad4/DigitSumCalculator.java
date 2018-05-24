@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pp2017.zad4;
 
-public class DigitSumCalculator {
+class DigitSumCalculator {
 
   static int calculate(String num) {
     return num.chars()
@@ -8,7 +8,7 @@ public class DigitSumCalculator {
         .sum();
   }
 
-  public static int calculate(String a, String b, String c) {
+  static int calculate(String a, String b, String c) {
     return calculate(a) + calculate(b) + calculate(c);
   }
 

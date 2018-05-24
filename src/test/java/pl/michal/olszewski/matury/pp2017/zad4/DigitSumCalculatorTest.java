@@ -6,10 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class DigitSumCalculatorTest {
 
-  DigitSumCalculator calculator = new DigitSumCalculator();
-
   @Test
-  void calculate() {
-    assertThat(calculator.calculate("123")).isEqualTo(6);
+  void shouldCalculateSumOfNumFromString() {
+    assertThat(DigitSumCalculator.calculate("123")).isEqualTo(6);
   }
 }

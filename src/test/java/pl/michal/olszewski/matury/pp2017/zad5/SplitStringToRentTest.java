@@ -20,6 +20,6 @@ class SplitStringToRentTest {
     assertThat(rent.getEnergy()).isNotNull().isEqualTo(new BigDecimal("39.35"));
     assertThat(rent.getWater()).isNotNull().isEqualTo(new BigDecimal("1.04"));
     assertThat(rent.getType()).isNotNull().isEqualTo(5L);
-    assertThat(rent.sumaWydatkow()).isEqualTo(new BigDecimal("490.39"));
+    assertThat(rent.getCostSum()).isEqualTo(new BigDecimal("490.39"));
   }
 }

@@ -8,7 +8,8 @@ import org.junit.jupiter.api.Test;
 class GreatestCommonDivisorTest {
 
   @Test
-  void testGCD() {
+    //TODO -> zrobic testy z CSV
+  void shouldCalculateGCD() {
     assertThat(calculate(3, 6, 9)).isEqualTo(3);
     assertThat(calculate(34, 10, 4)).isEqualTo(2);
     assertThat(calculate(36, 20, 28)).isEqualTo(4);

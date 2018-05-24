@@ -3,44 +3,44 @@ package pl.michal.olszewski.matury.pp2017.zad6;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+class Student {
 
   private final Long id;
   private final String name;
   private final String lastName;
   private final String classSymbol;
-  private final Long rok;
+  private final Long year;
   private List<Long> idZaglosowanychKandydatow = new ArrayList<>();
 
-  public Student(Long id, String name, String lastName, String classSymbol, Long rok) {
+  Student(Long id, String name, String lastName, String classSymbol, Long year) {
     this.id = id;
     this.name = name;
     this.lastName = lastName;
     this.classSymbol = classSymbol;
-    this.rok = rok;
+    this.year = year;
   }
 
-  public Long getId() {
+  Long getId() {
     return id;
   }
 
-  public String getName() {
+  String getName() {
     return name;
   }
 
-  public String getLastName() {
+  String getLastName() {
     return lastName;
   }
 
-  public String getClassSymbol() {
+  String getClassSymbol() {
     return classSymbol;
   }
 
-  public Long getRok() {
-    return rok;
+  Long getYear() {
+    return year;
   }
 
-  public List<Long> getIdZaglosowanychKandydatow() {
+  List<Long> getIdZaglosowanychKandydatow() {
     return idZaglosowanychKandydatow;
   }
 }

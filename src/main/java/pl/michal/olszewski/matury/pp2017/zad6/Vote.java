@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pp2017.zad6;
 
-public class Vote {
+class Vote {
 
   private final Long id;
   private final Long studentId;
@@ -12,15 +12,15 @@ public class Vote {
     this.candidateId = candidateId;
   }
 
-  public Long getId() {
+  Long getId() {
     return id;
   }
 
-  public Long getStudentId() {
+  Long getStudentId() {
     return studentId;
   }
 
-  public Long getCandidateId() {
+  Long getCandidateId() {
     return candidateId;
   }
 }

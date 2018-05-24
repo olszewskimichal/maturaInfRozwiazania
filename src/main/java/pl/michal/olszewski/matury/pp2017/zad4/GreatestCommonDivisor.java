@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pp2017.zad4;
 
-public class GreatestCommonDivisor {
+class GreatestCommonDivisor {
 
 
   private static int gcd(int a, int b) {
@@ -10,12 +10,15 @@ public class GreatestCommonDivisor {
     return gcd(b, a % b);
   }
 
-
   static int calculate(int a, int b, int c) {
     return gcd(gcd(a, b), c);
   }
 
-  public static int calculate(String a, String b, String c) {
+
+  /**
+   *  Wyznacza najwiekszy wspólny dzielnik z trójki liczb bedących Stringami
+   */
+  static int calculate(String a, String b, String c) {
     return calculate(Integer.valueOf(a), Integer.valueOf(b), Integer.valueOf(c));
   }
 

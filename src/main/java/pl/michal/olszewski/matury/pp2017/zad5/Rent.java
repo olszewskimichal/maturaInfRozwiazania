@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Rent {
+class Rent {
 
   private final LocalDate from;
   private final LocalDate to;
@@ -12,7 +12,7 @@ public class Rent {
   private final BigDecimal water;
   private final Long type;
 
-  public Rent(LocalDate from, LocalDate to, BigDecimal energy, BigDecimal water, Long type) {
+  Rent(LocalDate from, LocalDate to, BigDecimal energy, BigDecimal water, Long type) {
     this.from = from;
     this.to = to;
     this.energy = energy;
@@ -20,27 +20,27 @@ public class Rent {
     this.type = type;
   }
 
-  public LocalDate getFrom() {
+  LocalDate getFrom() {
     return from;
   }
 
-  public LocalDate getTo() {
+  LocalDate getTo() {
     return to;
   }
 
-  public BigDecimal getEnergy() {
+  BigDecimal getEnergy() {
     return energy;
   }
 
-  public BigDecimal getWater() {
+  BigDecimal getWater() {
     return water;
   }
 
-  public Long getType() {
+  Long getType() {
     return type;
   }
 
-  public BigDecimal sumaWydatkow() {
+  BigDecimal getCostSum() {
     long days = ChronoUnit.DAYS.between(getFrom(), getTo());
     return BigDecimal.TEN.multiply(BigDecimal.valueOf(type)).multiply(BigDecimal.valueOf(days)).add(getEnergy()).add(getWater());
   }

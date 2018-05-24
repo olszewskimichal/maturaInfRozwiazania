@@ -1,4 +1,4 @@
-package pl.michal.olszewski.matury.pp2017;
+package pl.michal.olszewski.matury.pp2017.zad6;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -11,11 +11,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pp2017.zad6.Candidate;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToVotePOJO;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToCandidatePOJO;
-import pl.michal.olszewski.matury.pp2017.zad6.SplitLineToStudentPOJO;
-import pl.michal.olszewski.matury.pp2017.zad6.Student;
 
 public class Zadanie6 {
 
@@ -38,9 +33,11 @@ public class Zadanie6 {
     System.out.println("Uczniow którzy nie wzieli udzialu w wyborach " + countStudentsForPredicate(students, v -> v.getIdZaglosowanychKandydatow().isEmpty()));
     System.out.println("Zad 6d");
 
-    Map<Long, List<Student>> listMap = students.stream().collect(Collectors.groupingBy(Student::getRok));
+    Map<Long, List<Student>> mapStudentsPerYear = students
+        .stream()
+        .collect(Collectors.groupingBy(Student::getYear));
 
-    for (Entry<Long, List<Student>> entry : listMap.entrySet()) {
+    for (Entry<Long, List<Student>> entry : mapStudentsPerYear.entrySet()) {
       int sum = entry
           .getValue().stream()
           .mapToInt(v -> v.getIdZaglosowanychKandydatow().size())
