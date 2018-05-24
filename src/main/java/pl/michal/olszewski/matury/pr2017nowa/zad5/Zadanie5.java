@@ -1,4 +1,4 @@
-package pl.michal.olszewski.matury.pr2017nowa;
+package pl.michal.olszewski.matury.pr2017nowa.zad5;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,14 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.MatchPlace;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.MatchResult;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.MatchType;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.Refree;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.SplitLineToMatchResultPOJO;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.SplitLineToRefreePOJO;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.SplitLineToTeamPOJO;
-import pl.michal.olszewski.matury.pr2017nowa.zad5.Team;
 
 public class Zadanie5 {
 
@@ -22,9 +14,9 @@ public class Zadanie5 {
   public static void main(String args[]) throws IOException {
     System.out.println("5.1");
     Set<MatchResult> matchResults = readAllResultsFromFile();
-    Set<Refree> refrees = readAllRefreeFromFile();
+    Set<Referee> referees = readAllRefreeFromFile();
     Set<Team> teams = readAllTeamsFromFile();
-    updateRefreeWithMatchResult(matchResults, refrees);
+    updateRefreeWithMatchResult(matchResults, referees);
     updateTeamsWithMatchResult(matchResults, teams);
 
     teams.stream().filter(v -> v.getCity().equals("Kucykowo"))
@@ -69,7 +61,7 @@ public class Zadanie5 {
     System.out.println("Wygrali " + won + " przegrali " + lost + " zremisowali " + draw);
     ;
     System.out.println("5.4");
-    long count = refrees
+    long count = referees
         .stream()
         .filter(v -> !v.getMatchResults().stream().map(MatchResult::getMatchType).collect(Collectors.toSet()).contains(MatchType.P))
         .count();
@@ -86,11 +78,11 @@ public class Zadanie5 {
         .collect(Collectors.toSet());
   }
 
-  private static Set<Refree> readAllRefreeFromFile() throws IOException {
+  private static Set<Referee> readAllRefreeFromFile() throws IOException {
     return Files.readAllLines(Paths.get("sedziowie.txt"))
         .stream()
         .skip(1)
-        .map(SplitLineToRefreePOJO::split)
+        .map(SplitLineToRefereePOJO::split)
         .collect(Collectors.toSet());
   }
 
@@ -110,8 +102,8 @@ public class Zadanie5 {
         .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono zespolu o id = " + id));
   }
 
-  private static Refree findRefreeById(String licenceNum, Set<Refree> refrees) {
-    return refrees
+  private static Referee findRefreeById(String licenceNum, Set<Referee> referees) {
+    return referees
         .stream()
         .filter(v -> v.getLicenceNum().equals(licenceNum))
         .findAny()
@@ -125,10 +117,10 @@ public class Zadanie5 {
     }
   }
 
-  private static void updateRefreeWithMatchResult(Set<MatchResult> results, Set<Refree> refrees) {
+  private static void updateRefreeWithMatchResult(Set<MatchResult> results, Set<Referee> referees) {
     for (MatchResult result : results) {
-      Refree refreeById = findRefreeById(result.getLicenceNum(), refrees);
-      refreeById.getMatchResults().add(result);
+      Referee refereeById = findRefreeById(result.getLicenceNum(), referees);
+      refereeById.getMatchResults().add(result);
     }
   }
 

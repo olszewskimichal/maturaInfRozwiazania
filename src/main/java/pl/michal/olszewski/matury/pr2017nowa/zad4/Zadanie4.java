@@ -1,4 +1,4 @@
-package pl.michal.olszewski.matury.pr2017nowa;
+package pl.michal.olszewski.matury.pr2017nowa.zad4;
 
 import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;
@@ -16,17 +16,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
-import pl.michal.olszewski.matury.pr2017nowa.zad4.SplitLineToSugarTransactionPOJO;
-import pl.michal.olszewski.matury.pr2017nowa.zad4.SugarTransaction;
 
 public class Zadanie4 {
 
 
   public static void main(String args[]) throws IOException {
-    System.out.println("zad 4.1");
-    Map<String, List<SugarTransaction>> sugarTransactionPerClient = readSugarTransactionFromFile()
+    Map<Integer, BigDecimal> costFromFile = readCostFromFile();
+    Set<SugarTransaction> sugarTransactions = readSugarTransactionFromFile();
+
+    System.out.println("zad 4.1 - numery 3 klientów którzy kupili najwiecej cukru");
+
+    Map<String, List<SugarTransaction>> sugarTransactionPerClient = sugarTransactions
         .stream()
         .collect(Collectors.groupingBy(SugarTransaction::getNip));
+
     sugarTransactionPerClient
         .entrySet()
         .stream()
@@ -34,22 +37,23 @@ public class Zadanie4 {
         .limit(3)
         .forEach(v -> System.out.println(v.getKey() + " " + getTransactionSum(v)));
 
-    System.out.println("zad 4.2");
-    Map<Integer, BigDecimal> costFromFile = readCostFromFile();
-    BigDecimal result = readSugarTransactionFromFile()
+    System.out.println("zad 4.2 - łaczny przychód to");
+
+    BigDecimal sumOfPrice = sugarTransactions
         .stream()
         .map(v -> costFromFile.getOrDefault(v.getDate().getYear(), ZERO).multiply(valueOf(v.getSugarCount())))
         .reduce(ZERO, BigDecimal::add);
-    System.out.println("zad 4.2 - wynik " + result);
 
-    System.out.println("zad 4.3");
-    readSugarTransactionFromFile()
+    System.out.println("zad 4.2 - wynik " + sumOfPrice);
+
+    System.out.println("zad 4.3 - ilość sprzedanego cukru w każdym roku");
+    sugarTransactions
         .stream()
         .collect(Collectors.groupingBy(v -> v.getDate().getYear()))
         .entrySet()
         .forEach(v -> System.out.println(v.getKey() + " " + getTransactionSum2(v)));
 
-    System.out.println("Zad 4.4");
+    System.out.println("Zad 4.4 - łączna suma rabatu");
     BigDecimal discount = BigDecimal.ZERO;
     for (Entry<String, List<SugarTransaction>> entry : sugarTransactionPerClient.entrySet()) {
       discount = discount.add(sumDiscountForClient(entry));
@@ -60,9 +64,10 @@ public class Zadanie4 {
 
     int sugarCount = 5000;
     int dostawWiekszychNiz3 = 0;
-    Map<Integer, List<SugarTransaction>> transactionPerYear = readSugarTransactionFromFile().stream()
+    Map<Integer, List<SugarTransaction>> transactionPerYear = sugarTransactions.stream()
         .sorted(Comparator.comparing(SugarTransaction::getDate))
         .collect(Collectors.groupingBy(v -> v.getDate().getYear()));
+
     for (Entry<Integer, List<SugarTransaction>> entry : transactionPerYear.entrySet()) {
       Map<Month, List<SugarTransaction>> transactionPerMonth = entry.getValue()
           .stream()
@@ -72,9 +77,9 @@ public class Zadanie4 {
             .mapToInt(SugarTransaction::getSugarCount)
             .sum();
         int diff = sugarCount - sumPerMonth;
-        int dostawa = ((5000 - diff) + 999) / 1000;
-        sugarCount = diff + dostawa * 1000;
-        if (dostawa > 3) {
+        int deliverCount = ((5000 - diff) + 999) / 1000;
+        sugarCount = diff + deliverCount * 1000;
+        if (deliverCount > 3) {
           dostawWiekszychNiz3++;
         }
       }
@@ -87,11 +92,16 @@ public class Zadanie4 {
 
 
   private static int getTransactionSum2(Entry<Integer, List<SugarTransaction>> v2) {
-    return v2.getValue().stream().mapToInt(SugarTransaction::getSugarCount).sum();
+    return v2.getValue().stream()
+        .mapToInt(SugarTransaction::getSugarCount)
+        .sum();
   }
 
   private static int getTransactionSum(Entry<String, List<SugarTransaction>> v2) {
-    return v2.getValue().stream().mapToInt(SugarTransaction::getSugarCount).sum();
+    return v2.getValue()
+        .stream()
+        .mapToInt(SugarTransaction::getSugarCount)
+        .sum();
   }
 
   private static Set<SugarTransaction> readSugarTransactionFromFile() throws IOException {

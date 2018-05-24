@@ -2,13 +2,13 @@ package pl.michal.olszewski.matury.pr2017nowa.zad6;
 
 import java.util.Arrays;
 
-public class MostOccuringValueInVertical {
+class MostOccuringValueInVertical {
 
   private static int[] getColumn(int[][] matrix, int column) {
     return Arrays.stream(matrix).mapToInt(ints -> ints[column]).toArray();
   }
 
-  static MostOccuringNextValue findMostOccuringValueInArray(int[] array) {
+  static MostOccurringNextValue findMostOccuringValueInArray(int[] array) {
     Integer resultValue = 0;
     int resultOccuring = 0;
 
@@ -30,20 +30,20 @@ public class MostOccuringValueInVertical {
         resultOccuring = occuring;
       }
     }
-    return new MostOccuringNextValue(resultValue, resultOccuring);
+    return new MostOccurringNextValue(resultValue, resultOccuring);
   }
 
-  public static int findValue(int[][] array) {
+  static int findValue(int[][] array) {
     int maxOccur = 0;
 
     int width = findNajkrotszyWiersz(array);
     for (int i = 0; i < width; i++) {
 
       int[] columnValues = getColumn(array, i);
-      MostOccuringNextValue occuringNextValue = findMostOccuringValueInArray(columnValues);
+      MostOccurringNextValue occuringNextValue = findMostOccuringValueInArray(columnValues);
 
-      if (occuringNextValue.getOccuring() > maxOccur) {
-        maxOccur = occuringNextValue.getOccuring();
+      if (occuringNextValue.getOccurring() > maxOccur) {
+        maxOccur = occuringNextValue.getOccurring();
       }
     }
 
@@ -63,29 +63,22 @@ public class MostOccuringValueInVertical {
 
 }
 
-class MostOccuringNextValue {
+class MostOccurringNextValue {
 
   private final int value;
-  private final int occuring;
+  private final int occurring;
 
-  MostOccuringNextValue(int value, int occuring) {
+  MostOccurringNextValue(int value, int occurring) {
     this.value = value;
-    this.occuring = occuring;
+    this.occurring = occurring;
   }
 
-  public int getValue() {
+  int getValue() {
     return value;
   }
 
-  public int getOccuring() {
-    return occuring;
+  int getOccurring() {
+    return occurring;
   }
 
-  @Override
-  public String toString() {
-    return "MostOccuringNextValue{" +
-        "value=" + value +
-        ", occuring=" + occuring +
-        '}';
-  }
 }

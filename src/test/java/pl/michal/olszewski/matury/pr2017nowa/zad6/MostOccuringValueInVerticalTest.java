@@ -61,8 +61,8 @@ class MostOccuringValueInVerticalTest {
   @Test
   void findMostOccuringValueInArray() {
     int[] array = new int[]{1, 2, 2, 2, 1, 1};
-    MostOccuringNextValue valueInArray = MostOccuringValueInVertical.findMostOccuringValueInArray(array);
+    MostOccurringNextValue valueInArray = MostOccuringValueInVertical.findMostOccuringValueInArray(array);
     assertThat(valueInArray.getValue()).isEqualTo(2);
-    assertThat(valueInArray.getOccuring()).isEqualTo(3);
+    assertThat(valueInArray.getOccurring()).isEqualTo(3);
   }
 }

@@ -3,9 +3,9 @@ package pl.michal.olszewski.matury.pr2017nowa.zad6;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayNeigborsOfPoint {
+class ArrayNeighborsOfPoint {
 
-  public static List<Point> findNeigborsOfPoint(int xpoint, int ypoint, int[][] array) {
+  static List<Point> findNeighborsOfPoint(int xpoint, int ypoint, int[][] array) {
     List<Point> neighbors = new ArrayList<>();
     for (int x = -1; x <= 1; x++) {
       for (int y = -1; y <= 1; y++) {

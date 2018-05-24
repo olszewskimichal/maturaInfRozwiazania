@@ -2,7 +2,7 @@ package pl.michal.olszewski.matury.pr2017nowa.zad5;
 
 import java.time.LocalDate;
 
-public class MatchResult {
+class MatchResult {
 
   private final LocalDate matchDate;
   private final MatchType matchType;
@@ -12,7 +12,7 @@ public class MatchResult {
   private final int bramkiZdobyte;
   private final int bramkiStracone;
 
-  public MatchResult(LocalDate matchDate, MatchType matchType, MatchPlace matchPlace, long teamId, String licenceNum, int bramkiZdobyte, int bramkiStracone) {
+  MatchResult(LocalDate matchDate, MatchType matchType, MatchPlace matchPlace, long teamId, String licenceNum, int bramkiZdobyte, int bramkiStracone) {
     this.matchDate = matchDate;
     this.matchType = matchType;
     this.matchPlace = matchPlace;
@@ -22,31 +22,31 @@ public class MatchResult {
     this.bramkiStracone = bramkiStracone;
   }
 
-  public LocalDate getMatchDate() {
+  LocalDate getMatchDate() {
     return matchDate;
   }
 
-  public MatchType getMatchType() {
+  MatchType getMatchType() {
     return matchType;
   }
 
-  public MatchPlace getMatchPlace() {
+  MatchPlace getMatchPlace() {
     return matchPlace;
   }
 
-  public long getTeamId() {
+  long getTeamId() {
     return teamId;
   }
 
-  public String getLicenceNum() {
+  String getLicenceNum() {
     return licenceNum;
   }
 
-  public int getBramkiZdobyte() {
+  int getBramkiZdobyte() {
     return bramkiZdobyte;
   }
 
-  public int getBramkiStracone() {
+  int getBramkiStracone() {
     return bramkiStracone;
   }
 }

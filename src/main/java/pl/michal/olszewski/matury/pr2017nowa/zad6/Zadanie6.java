@@ -1,4 +1,4 @@
-package pl.michal.olszewski.matury.pr2017nowa;
+package pl.michal.olszewski.matury.pr2017nowa.zad6;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import pl.michal.olszewski.matury.pr2017nowa.zad6.ArrayNeigborsOfPoint;
-import pl.michal.olszewski.matury.pr2017nowa.zad6.FindRowAxisOfSymmetry;
-import pl.michal.olszewski.matury.pr2017nowa.zad6.MostOccuringValueInVertical;
-import pl.michal.olszewski.matury.pr2017nowa.zad6.Point;
 
 public class Zadanie6 {
 
@@ -32,9 +28,8 @@ public class Zadanie6 {
     int countPixels = 0;
     for (int i = 0; i < array.length; i++) {
       for (int j = 0; j < array[i].length; j++) {
-        //System.out.println(" i = " + i + " j = " + j + " " + array.length + " " + array[i].length);
         Point point = new Point(i, j, array[i][j]);
-        Optional<Point> any = ArrayNeigborsOfPoint.findNeigborsOfPoint(i, j, array)
+        Optional<Point> any = ArrayNeighborsOfPoint.findNeighborsOfPoint(i, j, array)
             .stream()
             .filter(v -> v.isKontrastujacy(point))
             .findAny();
@@ -46,8 +41,6 @@ public class Zadanie6 {
     }
     System.out.println("Zad 6.3  wynik = " + countPixels);
     System.out.println("Zad 6.4 wynik = " + MostOccuringValueInVertical.findValue(array));
-
-
   }
 
 
