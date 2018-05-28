@@ -8,97 +8,46 @@ public class Zadanie5 {
 
   public static void main(String args[]) {
     System.out.println("Zad 5.1");
-    int initialState = 550;
-    int tmp = 26;
-    LocalDate initialDate = LocalDate.of(2015, 9, 15);
-    boolean isOver = true;
-    do {
-      if (initialDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || initialDate.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
-        //rano
-        initialState -= tmp;
-        //wieczor
-        initialState -= tmp;
-      } else {
-        initialState -= tmp;
-      }
-      System.out.println(initialDate + " " + initialState);
-      if (initialState < 100) {
-        isOver = false;
-      } else {
-        initialDate = initialDate.plusDays(1);
-      }
-
-    } while (isOver);
-    System.out.println(initialDate);
+    LocalDate resultDate = getFirstDeliverDate(550, 26, LocalDate.of(2015, 9, 14));
+    System.out.println(resultDate);
 
     System.out.println("5.2");
-    initialDate = LocalDate.of(2015, 9, 15);
+    LocalDate initialDate = LocalDate.of(2015, 9, 15);
 
-    int result = 0;
-    int gasResult = 0;
-    int woodenResult = 0;
-    initialState = 550;
+    HeatingStatistics heatingStatistics = new HeatingStatistics(550, 300);
+
     for (LocalDate date : initialDate.datesUntil(LocalDate.of(2016, 4, 1)).collect(Collectors.toList())) {
-      if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY) || date.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
-        //rano
-        if (initialState > tmp) {
-          initialState -= tmp;
-        }
-        //wieczor
-        if (initialState > tmp) {
-          woodenResult++;
-          initialState -= tmp;
-
-        } else {
-          gasResult++;
-
-        }
-      } else {
-
-        if (date.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
-          if (initialState < 100) {
-            result++;
-            initialState += 300;
-
-          }
-        }
-
-        //wieczor
-        if (initialState > tmp) {
-          woodenResult++;
-          initialState -= tmp;
-        } else {
-          gasResult++;
-        }
-      }
+      heatingStatistics = calculateStatisticForDay(heatingStatistics, date);
     }
-    System.out.println("5.2 wynik = " + result + " " + gasResult + " " + woodenResult);
+    System.out.println("5.2 wynik = " + heatingStatistics);
     System.out.println("5.3");
-    initialState = 550;
+
+    int woodenForEachHeating = 26;
+    Integer initialState = 550;
     for (LocalDate date : initialDate.datesUntil(LocalDate.of(2016, 4, 1)).collect(Collectors.toList())) {
-      if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY) || date.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+      if (isWeekend(date)) {
         //rano
-        if (initialState > tmp) {
-          initialState -= tmp;
+        if (initialState > woodenForEachHeating) {
+          initialState -= woodenForEachHeating;
         }
         //wieczor
-        if (initialState > tmp) {
-          initialState -= tmp;
+        if (initialState > woodenForEachHeating) {
+          initialState -= woodenForEachHeating;
         }
 
         System.out.println(date + " ; " + initialState);
       } else {
 
-        if (date.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
-          if (initialState < 100) {
-            initialState += 300;
+        if (isFriday(date)) {
+          if (needWoodenDeliver(initialState)) {
+            initialState += getWoodenDeliver();
 
           }
         }
 
         //wieczor
-        if (initialState > tmp) {
-          initialState -= tmp;
+        if (initialState > woodenForEachHeating) {
+          initialState -= woodenForEachHeating;
         }
 
         System.out.println(date + " ; " + initialState);
@@ -106,51 +55,95 @@ public class Zadanie5 {
     }
     System.out.println("5.4");
 
-
-    int addWooden = 300;
-    isOver = true;
+    int addWooden = getWoodenDeliver();
+    Boolean isOver = true;
 
     do {
       initialState = 550;
-      gasResult = 0;
+      int gasEveningHeatingCount = 0;
       addWooden++;
       System.out.println(addWooden);
 
       for (LocalDate date : initialDate.datesUntil(LocalDate.of(2016, 4, 1)).collect(Collectors.toList())) {
-        if (date.getDayOfWeek().equals(DayOfWeek.SUNDAY) || date.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+        if (isWeekend(date)) {
           //rano
-          if (initialState >= tmp) {
-            initialState -= tmp;
+          if (initialState >= woodenForEachHeating) {
+            initialState -= woodenForEachHeating;
           }
           //wieczor
-          if (initialState >= tmp) {
-            initialState -= tmp;
+          if (initialState >= woodenForEachHeating) {
+            initialState -= woodenForEachHeating;
           } else {
-            gasResult++;
+            gasEveningHeatingCount++;
           }
         } else {
 
-          if (date.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
-            if (initialState < 100) {
+          if (isFriday(date)) {
+            if (needWoodenDeliver(initialState)) {
               initialState += addWooden;
             }
           }
 
           //wieczor
-          if (initialState >= tmp) {
-            initialState -= tmp;
+          if (initialState >= woodenForEachHeating) {
+            initialState -= woodenForEachHeating;
           } else {
-            gasResult++;
+            gasEveningHeatingCount++;
           }
         }
       }
-      if (gasResult == 0) {
+      if (gasEveningHeatingCount == 0) {
         isOver = false;
       }
 
     } while (isOver);
     System.out.println("Musi dostarczac " + addWooden);
 
+  }
+
+  private static HeatingStatistics calculateStatisticForDay(HeatingStatistics heatingStatistics, LocalDate date) {
+    if (isWeekend(date)) {
+      heatingStatistics = heatingStatistics.weekendMorningHeating();
+      heatingStatistics = heatingStatistics.eveningHeating();
+    } else {
+      heatingStatistics = heatingStatistics.weekDayMorningHeating();
+      if (isFriday(date)) {
+        heatingStatistics = heatingStatistics.fridayWoodenDelivering();
+      }
+      heatingStatistics = heatingStatistics.eveningHeating();
+    }
+    return heatingStatistics;
+  }
+
+  private static int getWoodenDeliver() {
+    return 300;
+  }
+
+  private static boolean needWoodenDeliver(Integer initialState) {
+    return initialState < 100;
+  }
+
+  private static boolean isFriday(LocalDate date) {
+    return date.getDayOfWeek().equals(DayOfWeek.FRIDAY);
+  }
+
+  private static LocalDate getFirstDeliverDate(int initialState, int woodenForEachHeating, LocalDate initialDate) {
+    do {
+      initialDate = initialDate.plusDays(1);
+      if (isWeekend(initialDate)) {
+        //rano
+        initialState -= woodenForEachHeating;
+        //wieczor
+        initialState -= woodenForEachHeating;
+      } else {
+        initialState -= woodenForEachHeating;
+      }
+    } while (initialState > 100);
+    return initialDate;
+  }
+
+  private static boolean isWeekend(LocalDate initialDate) {
+    return initialDate.getDayOfWeek().equals(DayOfWeek.SUNDAY) || initialDate.getDayOfWeek().equals(DayOfWeek.SATURDAY);
   }
 
 }
