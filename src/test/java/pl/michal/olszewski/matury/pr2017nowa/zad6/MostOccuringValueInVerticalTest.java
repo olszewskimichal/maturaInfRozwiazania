@@ -40,7 +40,7 @@ class MostOccuringValueInVerticalTest {
 
   @Test
   void findValue() {
-    assertThat(MostOccuringValueInVertical.findValue(multi)).isEqualTo(0);
+    assertThat(MostOccuringValueInVertical.findValue(multi)).isEqualTo(2);
   }
 
   @Test
