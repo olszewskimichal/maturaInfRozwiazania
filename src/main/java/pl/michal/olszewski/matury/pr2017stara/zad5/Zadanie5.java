@@ -8,7 +8,7 @@ public class Zadanie5 {
 
   public static void main(String args[]) {
     System.out.println("Zad 5.1");
-    LocalDate resultDate = getFirstDeliverDate(550, 26, LocalDate.of(2015, 9, 14));
+    LocalDate resultDate = getFirstDeliverDate(LocalDate.of(2015, 9, 14));
     System.out.println(resultDate);
 
     System.out.println("5.2");
@@ -22,82 +22,24 @@ public class Zadanie5 {
     System.out.println("5.2 wynik = " + heatingStatistics);
     System.out.println("5.3");
 
-    int woodenForEachHeating = 26;
-    Integer initialState = 550;
+    heatingStatistics = new HeatingStatistics(550, 300);
     for (LocalDate date : initialDate.datesUntil(LocalDate.of(2016, 4, 1)).collect(Collectors.toList())) {
-      if (isWeekend(date)) {
-        //rano
-        if (initialState > woodenForEachHeating) {
-          initialState -= woodenForEachHeating;
-        }
-        //wieczor
-        if (initialState > woodenForEachHeating) {
-          initialState -= woodenForEachHeating;
-        }
-
-        System.out.println(date + " ; " + initialState);
-      } else {
-
-        if (isFriday(date)) {
-          if (needWoodenDeliver(initialState)) {
-            initialState += getWoodenDeliver();
-
-          }
-        }
-
-        //wieczor
-        if (initialState > woodenForEachHeating) {
-          initialState -= woodenForEachHeating;
-        }
-
-        System.out.println(date + " ; " + initialState);
-      }
+      heatingStatistics = calculateStatisticForDay(heatingStatistics, date);
+      System.out.println(date + " " + heatingStatistics.getWoodenState());
     }
     System.out.println("5.4");
 
-    int addWooden = getWoodenDeliver();
-    Boolean isOver = true;
+    int woodenDeliver = 300;
 
     do {
-      initialState = 550;
-      int gasEveningHeatingCount = 0;
-      addWooden++;
-      System.out.println(addWooden);
+      woodenDeliver++;
+      heatingStatistics = new HeatingStatistics(550, woodenDeliver);
 
       for (LocalDate date : initialDate.datesUntil(LocalDate.of(2016, 4, 1)).collect(Collectors.toList())) {
-        if (isWeekend(date)) {
-          //rano
-          if (initialState >= woodenForEachHeating) {
-            initialState -= woodenForEachHeating;
-          }
-          //wieczor
-          if (initialState >= woodenForEachHeating) {
-            initialState -= woodenForEachHeating;
-          } else {
-            gasEveningHeatingCount++;
-          }
-        } else {
-
-          if (isFriday(date)) {
-            if (needWoodenDeliver(initialState)) {
-              initialState += addWooden;
-            }
-          }
-
-          //wieczor
-          if (initialState >= woodenForEachHeating) {
-            initialState -= woodenForEachHeating;
-          } else {
-            gasEveningHeatingCount++;
-          }
-        }
+        heatingStatistics = calculateStatisticForDay(heatingStatistics, date);
       }
-      if (gasEveningHeatingCount == 0) {
-        isOver = false;
-      }
-
-    } while (isOver);
-    System.out.println("Musi dostarczac " + addWooden);
+    } while (heatingStatistics.getGasEveningHeatingCount() != 0);
+    System.out.println("Musi dostarczac " + woodenDeliver);
 
   }
 
@@ -115,30 +57,17 @@ public class Zadanie5 {
     return heatingStatistics;
   }
 
-  private static int getWoodenDeliver() {
-    return 300;
-  }
-
-  private static boolean needWoodenDeliver(Integer initialState) {
-    return initialState < 100;
-  }
-
   private static boolean isFriday(LocalDate date) {
     return date.getDayOfWeek().equals(DayOfWeek.FRIDAY);
   }
 
-  private static LocalDate getFirstDeliverDate(int initialState, int woodenForEachHeating, LocalDate initialDate) {
+  private static LocalDate getFirstDeliverDate(LocalDate initialDate) {
+
+    HeatingStatistics heatingStatistics = new HeatingStatistics(550, 300);
     do {
       initialDate = initialDate.plusDays(1);
-      if (isWeekend(initialDate)) {
-        //rano
-        initialState -= woodenForEachHeating;
-        //wieczor
-        initialState -= woodenForEachHeating;
-      } else {
-        initialState -= woodenForEachHeating;
-      }
-    } while (initialState > 100);
+      heatingStatistics = calculateStatisticForDay(heatingStatistics, initialDate);
+    } while (heatingStatistics.getWoodenState() > 100);
     return initialDate;
   }
 

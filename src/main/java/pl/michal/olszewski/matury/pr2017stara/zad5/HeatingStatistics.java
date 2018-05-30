@@ -105,6 +105,18 @@ public class HeatingStatistics {
     return deliverCount;
   }
 
+  public int getWoodenState() {
+    return woodenState;
+  }
+
+  public int getWoodenForEachHeating() {
+    return woodenForEachHeating;
+  }
+
+  public int getWoodenDeliver() {
+    return woodenDeliver;
+  }
+
   @Override
   public String toString() {
     return "HeatingStatistics{" +
@@ -113,6 +125,9 @@ public class HeatingStatistics {
         ", woodenEveningHeatingCount=" + woodenEveningHeatingCount +
         ", woodenMorningHeatingCount=" + woodenMorningHeatingCount +
         ", deliverCount=" + deliverCount +
+        ", woodenState=" + woodenState +
+        ", woodenForEachHeating=" + woodenForEachHeating +
+        ", woodenDeliver=" + woodenDeliver +
         '}';
   }
 }
