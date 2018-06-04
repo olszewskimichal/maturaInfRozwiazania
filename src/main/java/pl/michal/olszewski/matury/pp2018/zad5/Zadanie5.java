@@ -32,9 +32,7 @@ public class Zadanie5 {
         .stream()
         .mapToLong(Zadanie5::digitSum)
         .sum());
-
   }
-
 
   private static boolean isPalindromeUsingIntStream(String text) {
     String temp = text.replaceAll("\\s+", "").toLowerCase();

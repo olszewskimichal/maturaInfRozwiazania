@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trip {
+class Trip {
 
   private final Long id;
   private final String country;
@@ -14,7 +14,7 @@ public class Trip {
   private final BigDecimal price;
   private List<Reservation> reservations = new ArrayList<>();
 
-  public Trip(Long id, String kraj, String escape, LocalDate from, BigDecimal price) {
+  Trip(Long id, String kraj, String escape, LocalDate from, BigDecimal price) {
     this.id = id;
     this.country = kraj;
     this.escape = escape;
@@ -22,27 +22,27 @@ public class Trip {
     this.price = price;
   }
 
-  public Long getId() {
+  Long getId() {
     return id;
   }
 
-  public String getCountry() {
+  String getCountry() {
     return country;
   }
 
-  public String getEscape() {
+  String getEscape() {
     return escape;
   }
 
-  public LocalDate getFrom() {
+  LocalDate getFrom() {
     return from;
   }
 
-  public BigDecimal getPrice() {
+  BigDecimal getPrice() {
     return price;
   }
 
-  public List<Reservation> getReservations() {
+  List<Reservation> getReservations() {
     return reservations;
   }
 

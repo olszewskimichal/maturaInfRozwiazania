@@ -37,8 +37,6 @@ public class Zadanie4 {
         .filter(v -> v.equals(maxValueInRow))
         .count();
     System.out.println("Wynik 4c -> Maksymalna wartosc to " + maxValueInRow + " która wystapila " + countMaxValueInFile);
-
-
   }
 
   private static Stream<String[]> getStreamWithStringArrayValuesFromFile() throws IOException {

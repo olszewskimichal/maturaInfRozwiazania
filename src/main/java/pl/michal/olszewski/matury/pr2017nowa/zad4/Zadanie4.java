@@ -89,8 +89,6 @@ public class Zadanie4 {
 
 
   }
-
-
   private static int getTransactionSum2(Entry<Integer, List<SugarTransaction>> v2) {
     return v2.getValue().stream()
         .mapToInt(SugarTransaction::getSugarCount)

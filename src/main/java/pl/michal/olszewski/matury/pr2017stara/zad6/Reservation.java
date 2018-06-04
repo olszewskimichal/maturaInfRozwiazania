@@ -1,6 +1,6 @@
 package pl.michal.olszewski.matury.pr2017stara.zad6;
 
-public class Reservation {
+class Reservation {
 
   private final Long id;
   private final Long idOsoby;
@@ -9,7 +9,7 @@ public class Reservation {
   private final int dzieci;
   private Trip trip;
 
-  public Reservation(Long id, Long idOsoby, Long idWycieczki, int dorosli, int dzieci) {
+  Reservation(Long id, Long idOsoby, Long idWycieczki, int dorosli, int dzieci) {
     this.id = id;
     this.idOsoby = idOsoby;
     this.idWycieczki = idWycieczki;
@@ -17,31 +17,31 @@ public class Reservation {
     this.dzieci = dzieci;
   }
 
-  public Long getId() {
+  Long getId() {
     return id;
   }
 
-  public Long getIdOsoby() {
+  Long getIdOsoby() {
     return idOsoby;
   }
 
-  public Long getIdWycieczki() {
+  Long getIdWycieczki() {
     return idWycieczki;
   }
 
-  public int getDorosli() {
+  int getDorosli() {
     return dorosli;
   }
 
-  public int getDzieci() {
+  int getDzieci() {
     return dzieci;
   }
 
-  public Trip getTrip() {
+  Trip getTrip() {
     return trip;
   }
 
-  public void setTrip(Trip trip) {
+  void setTrip(Trip trip) {
     this.trip = trip;
   }
 }

@@ -11,7 +11,7 @@ public class HeatingStatistics {
   private final int woodenForEachHeating;
   private final int woodenDeliver;
 
-  public HeatingStatistics(int woodenState, int woodenDeliver) {
+  HeatingStatistics(int woodenState, int woodenDeliver) {
     this.woodenState = woodenState;
     this.woodenMorningHeatingCount = 0;
     this.woodenEveningHeatingCount = 0;
@@ -34,29 +34,29 @@ public class HeatingStatistics {
     this.woodenDeliver = woodenDeliver;
   }
 
-  public HeatingStatistics increaseGasEveningHeatingCount() {
+  private HeatingStatistics increaseGasEveningHeatingCount() {
     return new HeatingStatistics(gasEveningHeatingCount + 1, gasMorningHeatingCount, woodenEveningHeatingCount, woodenMorningHeatingCount, deliverCount, woodenState, woodenDeliver);
   }
 
-  public HeatingStatistics increaseGasMorningHeatingCount() {
+  private HeatingStatistics increaseGasMorningHeatingCount() {
     return new HeatingStatistics(gasEveningHeatingCount, gasMorningHeatingCount + 1, woodenEveningHeatingCount, woodenMorningHeatingCount, deliverCount, woodenState, woodenDeliver);
   }
 
-  public HeatingStatistics increaseWoodenEveningHeatingCount() {
+  private HeatingStatistics increaseWoodenEveningHeatingCount() {
     return new HeatingStatistics(gasEveningHeatingCount, gasMorningHeatingCount, woodenEveningHeatingCount + 1, woodenMorningHeatingCount, deliverCount, woodenState - woodenForEachHeating,
         woodenDeliver);
   }
 
-  public HeatingStatistics increaseWoodenMorningHeatingCount() {
+  private HeatingStatistics increaseWoodenMorningHeatingCount() {
     return new HeatingStatistics(gasEveningHeatingCount, gasMorningHeatingCount, woodenEveningHeatingCount, woodenMorningHeatingCount + 1, deliverCount, woodenState - woodenForEachHeating,
         woodenDeliver);
   }
 
-  public HeatingStatistics increaseDeliverCount() {
+  private HeatingStatistics increaseDeliverCount() {
     return new HeatingStatistics(gasEveningHeatingCount, gasMorningHeatingCount, woodenEveningHeatingCount, woodenMorningHeatingCount, deliverCount + 1, woodenState + woodenDeliver, woodenDeliver);
   }
 
-  public HeatingStatistics weekendMorningHeating() {
+  HeatingStatistics weekendMorningHeating() {
     boolean canMorningWoodenHeating = woodenState >= woodenForEachHeating;
     if (canMorningWoodenHeating) {
       return this.increaseWoodenMorningHeatingCount();
@@ -65,11 +65,11 @@ public class HeatingStatistics {
     }
   }
 
-  public HeatingStatistics weekDayMorningHeating() {
+  HeatingStatistics weekDayMorningHeating() {
     return this.increaseGasMorningHeatingCount();
   }
 
-  public HeatingStatistics eveningHeating() {
+  HeatingStatistics eveningHeating() {
     boolean canEveningWoodenHeating = woodenState >= woodenForEachHeating;
     if (canEveningWoodenHeating) {
       return this.increaseWoodenEveningHeatingCount();
@@ -78,43 +78,19 @@ public class HeatingStatistics {
     }
   }
 
-  public HeatingStatistics fridayWoodenDelivering() {
+  HeatingStatistics fridayWoodenDelivering() {
     if (woodenState < 100) {
       return this.increaseDeliverCount();
     }
     return this;
   }
 
-  public int getGasEveningHeatingCount() {
+  int getGasEveningHeatingCount() {
     return gasEveningHeatingCount;
   }
 
-  public int getGasMorningHeatingCount() {
-    return gasMorningHeatingCount;
-  }
-
-  public int getWoodenEveningHeatingCount() {
-    return woodenEveningHeatingCount;
-  }
-
-  public int getWoodenMorningHeatingCount() {
-    return woodenMorningHeatingCount;
-  }
-
-  public int getDeliverCount() {
-    return deliverCount;
-  }
-
-  public int getWoodenState() {
+  int getWoodenState() {
     return woodenState;
-  }
-
-  public int getWoodenForEachHeating() {
-    return woodenForEachHeating;
-  }
-
-  public int getWoodenDeliver() {
-    return woodenDeliver;
   }
 
   @Override

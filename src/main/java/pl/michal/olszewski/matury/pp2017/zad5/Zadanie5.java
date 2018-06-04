@@ -64,7 +64,6 @@ public class Zadanie5 {
       System.out.println(entry.getKey() + " " + sum);
     }
 
-
   }
 
   private static Stream<Rent> getRentStream() throws IOException {

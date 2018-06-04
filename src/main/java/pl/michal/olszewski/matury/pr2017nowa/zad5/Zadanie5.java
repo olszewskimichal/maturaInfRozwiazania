@@ -16,7 +16,7 @@ public class Zadanie5 {
     Set<MatchResult> matchResults = readAllResultsFromFile();
     Set<Referee> referees = readAllRefreeFromFile();
     Set<Team> teams = readAllTeamsFromFile();
-    updateRefreeWithMatchResult(matchResults, referees);
+    updateRefereeWithMatchResult(matchResults, referees);
     updateTeamsWithMatchResult(matchResults, teams);
 
     teams.stream().filter(v -> v.getCity().equals("Kucykowo"))
@@ -117,7 +117,7 @@ public class Zadanie5 {
     }
   }
 
-  private static void updateRefreeWithMatchResult(Set<MatchResult> results, Set<Referee> referees) {
+  private static void updateRefereeWithMatchResult(Set<MatchResult> results, Set<Referee> referees) {
     for (MatchResult result : results) {
       Referee refereeById = findRefreeById(result.getLicenceNum(), referees);
       refereeById.getMatchResults().add(result);
